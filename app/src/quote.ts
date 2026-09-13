@@ -7,6 +7,12 @@
  * промптом з acceptance criteria (Task A).
  */
 
+/** Скільки центів в одному доларі — для форматування сум людині. */
+const CENTS_PER_DOLLAR = 100;
+
+/** Знижка у відсотках рахується як частка від 100. */
+const PERCENT_SCALE = 100;
+
 export interface QuoteInput {
   /** Оцінка робіт у годинах */
   hours: number;
@@ -19,8 +25,14 @@ export interface QuoteInput {
 /** Ціна проєкту в центах з урахуванням знижки. */
 export function estimateTotalCents(input: QuoteInput): number {
   const { hours, rateCents, discountPercent = 0 } = input;
+  if (!Number.isFinite(hours) || !Number.isFinite(rateCents)) {
+    throw new RangeError(`hours and rateCents must be finite numbers, got hours=${hours}, rateCents=${rateCents}`);
+  }
+  if (!Number.isFinite(discountPercent) || discountPercent < 0 || discountPercent > 100) {
+    throw new RangeError(`discountPercent must be a finite number between 0 and 100, got ${discountPercent}`);
+  }
   const gross = hours * rateCents;
-  const discount = (gross * discountPercent) / 100;
+  const discount = (gross * discountPercent) / PERCENT_SCALE;
   return Math.round(gross - discount);
 }
 
@@ -29,15 +41,19 @@ export function estimateTotalCents(input: QuoteInput): number {
  * Повертає масив довжиною `parts`.
  */
 export function splitInstallments(totalCents: number, parts: number): number[] {
-  const each = Math.round(totalCents / parts);
-  return new Array(parts).fill(each);
+  if (!Number.isInteger(parts) || parts <= 0) {
+    throw new RangeError(`parts must be a positive integer, got ${parts}`);
+  }
+  const base = Math.floor(totalCents / parts);
+  const remainder = totalCents - base * parts;
+  return Array.from({ length: parts }, (_, i) => base + (i < remainder ? 1 : 0));
 }
 
 /** Форматування центів у рядок на кшталт "$1,234.50". */
 export function formatMoney(cents: number): string {
   const sign = cents < 0 ? "-" : "";
   const abs = Math.abs(cents);
-  const whole = Math.floor(abs / 100).toLocaleString("en-US");
-  const frac = String(abs % 100).padStart(2, "0");
+  const whole = Math.floor(abs / CENTS_PER_DOLLAR).toLocaleString("en-US");
+  const frac = String(abs % CENTS_PER_DOLLAR).padStart(2, "0");
   return `${sign}$${whole}.${frac}`;
 }

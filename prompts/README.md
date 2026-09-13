@@ -9,10 +9,14 @@
 | Промпт | Що робить | Перевірено на |
 |---|---|---|
 | [`review-pr.md`](./review-pr.md) | Рев'ю дифу перед мержем (приклад-планка) | `app/src/quote.ts` |
-| _<ваш промпт>_ | | |
+| [`add-tests.md`](./add-tests.md) | Додати тести на крайові випадки, виправити знайдений дефект | `app/src/quote.ts`, `app/src/quote.test.ts` |
+| [`debug-quote.md`](./debug-quote.md) | Відтворити баг-репорт, знайти root cause, виправити з регресійним тестом | `app/src/quote.ts` (`estimateTotalCents`) |
+| [`refactor-quote.md`](./refactor-quote.md) | Прибрати magic numbers без зміни поведінки | `app/src/quote.ts` |
+| [`document-quote.md`](./document-quote.md) | Написати README з API й інваріантами, підтвердженими тестами | `app/src/quote.ts` → `app/README.md` |
+| [`document-integration.md`](./document-integration.md) | Опис n8n-інтеграції для hand-off, без секретів у тексті | Реальна задача агенції: лід із сайту → Slack |
 
-> Заповніть таблицю своїми промптами (Task A). Мінімум — 6 штук, що покривають
-> тести, рев'ю, документацію, рефакторинг, дебаг і одну задачу вашої агенції.
+> Task A закрито: 6/6 промптів, кожен перевірений на реальній задачі — тести,
+> рев'ю, дебаг, рефакторинг, документація й одна задача агенції.
 
 ## Правила цієї бібліотеки
 
