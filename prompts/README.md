@@ -8,15 +8,17 @@
 
 | Промпт | Що робить | Перевірено на |
 |---|---|---|
-| [`review-pr.md`](./review-pr.md) | Рев'ю дифу перед мержем (приклад-планка) | `app/src/quote.ts` |
+| [`review-pr.md`](./review-pr.md) | Рев'ю дифу перед мержем (приклад-планка, не рахується в 6) | `app/src/quote.ts` |
 | [`add-tests.md`](./add-tests.md) | Додати тести на крайові випадки, виправити знайдений дефект | `app/src/quote.ts`, `app/src/quote.test.ts` |
+| [`review-test-coverage.md`](./review-test-coverage.md) | Перевірити, чи тести покривають задокументовані інваріанти файлу | `app/src/quote.ts`, `app/src/quote.test.ts` |
 | [`debug-quote.md`](./debug-quote.md) | Відтворити баг-репорт, знайти root cause, виправити з регресійним тестом | `app/src/quote.ts` (`estimateTotalCents`) |
 | [`refactor-quote.md`](./refactor-quote.md) | Прибрати magic numbers без зміни поведінки | `app/src/quote.ts` |
 | [`document-quote.md`](./document-quote.md) | Написати README з API й інваріантами, підтвердженими тестами | `app/src/quote.ts` → `app/README.md` |
 | [`document-integration.md`](./document-integration.md) | Опис n8n-інтеграції для hand-off, без секретів у тексті | Реальна задача агенції: лід із сайту → Slack |
 
-> Task A закрито: 6/6 промптів, кожен перевірений на реальній задачі — тести,
-> рев'ю, дебаг, рефакторинг, документація й одна задача агенції.
+> Task A закрито: 6/6 **власних** промптів (окрім `_template.md` і прикладу
+> `review-pr.md`), кожен перевірений на реальній задачі — тести, рев'ю покриття,
+> дебаг, рефакторинг, документація й одна задача агенції.
 
 ## Правила цієї бібліотеки
 

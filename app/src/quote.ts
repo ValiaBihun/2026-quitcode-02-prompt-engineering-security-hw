@@ -41,6 +41,9 @@ export function estimateTotalCents(input: QuoteInput): number {
  * Повертає масив довжиною `parts`.
  */
 export function splitInstallments(totalCents: number, parts: number): number[] {
+  if (!Number.isInteger(totalCents)) {
+    throw new RangeError(`totalCents must be an integer, got ${totalCents}`);
+  }
   if (!Number.isInteger(parts) || parts <= 0) {
     throw new RangeError(`parts must be a positive integer, got ${parts}`);
   }

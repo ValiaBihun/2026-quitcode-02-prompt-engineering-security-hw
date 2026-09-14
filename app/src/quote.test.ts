@@ -70,6 +70,10 @@ describe("splitInstallments", () => {
   it("кидає помилку, якщо parts не ціле число", () => {
     expect(() => splitInstallments(1000, 2.5)).toThrow(RangeError);
   });
+
+  it("кидає помилку, якщо totalCents не ціле число", () => {
+    expect(() => splitInstallments(100.5, 3)).toThrow(RangeError);
+  });
 });
 
 describe("formatMoney", () => {
